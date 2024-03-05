@@ -9,21 +9,20 @@ public class Pig : MonoBehaviour
     [SerializeField] private  Animator _myAnimator;
     [SerializeField] private  float _dieAfterSomeTime = 1f;
 
-    private bool _hasDied = false;
     private float _currentHealth;
 
     private void Awake()
     {
         _currentHealth = _madHealth;
     }
-    
+
     public void Damage(float damageAmount)
     {
         _currentHealth -= damageAmount;
-        _myAnimator.SetFloat("Health", _currentHealth);
+    
         if (_currentHealth <= 0f)
         {
-            _dieAfterSomeTime = _myAnimator.GetCurrentAnimatorStateInfo(0).length;
+            _myAnimator.SetTrigger("Died");
             StartCoroutine(DieAfterSomeTime());
         }
     }
